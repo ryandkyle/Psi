@@ -34,31 +34,16 @@ let createCreeps = function(allCreeps) {
         }
     };
 
-    let creepsCount = allCreeps.length;
-    console.log("There are " + creepsCount + " creeps!");
+    //let creepsCount = allCreeps.length;
+    //console.log("There are " + creepsCount + " creeps!");
 
     let mainSpawn = Game.spawns['Spawn1'];
-
-    let harvesters = allCreeps.filter( (t) => {
-        return t.creep.memory.role === 'harvester'});
-    let upgraders = allCreeps.filter( (t) => {
-        return t.creep.memory.role === 'upgrader'});
-    let builders = allCreeps.filter( (t) => {
-        return t.creep.memory.role === 'builder'});
-
-    // if (harvesters.length < maxCounts["harvester"]) {
-    //     spawnCreep("harvester");
-    // } else if (upgraders.length < maxCounts["upgrader"]) {
-    //     spawnCreep("upgrader");
-    // } else if (builders.length < maxCounts["builder"]) {
-    //     spawnCreep("builder");
-    // }
 
     let roles = ["harvester", "upgrader", "builder"];
     for (let i in roles) {
         let role = roles[i];
         let things = allCreeps.filter((t) => t.creep.memory.role === role);
-        console.log(role + " count: " + things.length);
+        //console.log(role + " count: " + things.length);
         if (things.length < maxCounts[role]) {
             spawnCreep(role);
             break;
