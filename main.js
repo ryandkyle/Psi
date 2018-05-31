@@ -1,8 +1,17 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+var createCreeps = require('createCreeps');
 
 module.exports.loop = function () {
+
+    let allCreeps = [];
+    for(var name in Game.creeps) {
+        var creep = Game.creeps[name];
+        allCreeps.push({name, creep});
+    }
+
+    createCreeps(allCreeps);
 
     var tower = Game.getObjectById('TOWER_ID');
     if(tower) {
