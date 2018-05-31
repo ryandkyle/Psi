@@ -5,19 +5,33 @@ var roleBuilder = {
 
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('?? harvest');
+            creep.say('🔄 harvest');
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
-            creep.say('?? build');
+            creep.say('🚧 build');
         }
 
         if(creep.memory.building) {
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+            let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if(targets.length) {
                 // Build something!
-                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                
+                let highestPercent = -1.0;
+                let bestTarget = undefined;
+                for(var targetId in targets)
+                {
+                    let target = targets[targetId];
+                    let percent = target.progress / target.progressTotal;
+                    if(percent > highestPercent)
+                    {
+                        bestTarget = target
+                        highestPercent = percent
+                    }
+                }
+                
+                if(bestTarget && creep.build(bestTarget) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(bestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
             else
@@ -26,8 +40,7 @@ var roleBuilder = {
                 var buildings = require('domain.buildings');
                 var potentialBuilding = buildings.getNextBuilding(creep.room);
                 if(potentialBuilding){
-                    creep.room.createConstructionSite(potentialBuilding.x, potentialBuilding.y, potentialBuilding.type, potentialBuilding.name);
-                    return;
+                    return
                 }
             }
         }
