@@ -37,7 +37,7 @@ let roleHarvester = {
                     creep.room.createConstructionSite(creep.pos, STRUCTURE_ROAD, undefined);
                 }
             } else {
-                creep.moveTo(creep.room.FIND_STRUCTURES(STRUCTURE_SPAWN)[0], {visualizePathStyle: {stroke: '#aaddff'}});
+                creep.moveTo(creep.room.find(FIND_MY_SPAWNS)[0], {visualizePathStyle: {stroke: '#aaddff'}});
             }
         }
     }
