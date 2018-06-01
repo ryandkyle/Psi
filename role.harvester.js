@@ -37,7 +37,13 @@ let roleHarvester = {
                 creep.moveTo(creep.memory.source, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
             else {
-                console.log("error code: " + errorCode);
+                if (errorCode === ERR_INVALID_TARGET) {
+                    console.log("ERR_INVALID_TARGET");
+                    console.log("This doesn't make sense.");
+                }
+                else {
+                    console.log("error code: " + errorCode);
+                }
                 console.log("energy: " + creep.carry.energy);
             }
         }
