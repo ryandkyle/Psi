@@ -22,7 +22,7 @@ let roleHarvester = {
             }
 
             // Harvest or move to Source
-            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
