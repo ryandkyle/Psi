@@ -5,6 +5,10 @@ let roleHarvester = {
 
         let getSourceLocation = function(sources) {
             let index = Math.floor(Math.random() * sources.length);
+            if (index > sources.length - 1) {
+                console.log("Index out of range trying to find a source. Random number failed us somehow. Falling back to 0.");
+                index = 0;
+            }
             return sources[index];
         };
 
