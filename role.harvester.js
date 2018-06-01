@@ -12,17 +12,23 @@ let roleHarvester = {
             return sources[index];
         };
 
-        if(creep.carry.energy < creep.carryCapacity) {
+        // If less than full of energy
+        if (creep.carry.energy < creep.carryCapacity) {
             let source = creep.memory.source;
-            if (!creep.memory.source) {
+            //console.log(creep.name + "'s source is " + source);
+
+            if (source === undefined || source.id === undefined) {
+                //console.log(creep.name + "'s source was null");
                 let sources = creep.room.find(FIND_SOURCES);
                 source = getSourceLocation(sources);
                 creep.memory.source = source;
-                console.log(creep.name + " found " + source.name);
+                console.log(creep.name + " found " + source.id);
             }
+            //console.log(creep.name + "'s source is now " + source.name);
 
             // Harvest or move to Source
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                //console.log(creep.name + " is moving to " + source.name + " to harvest");
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
@@ -35,12 +41,14 @@ let roleHarvester = {
                         structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
                 }
             });
-            if(targets.length > 0) {
-                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+            if (targets.length > 0) {
+                if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                     creep.room.createConstructionSite(creep.pos, STRUCTURE_ROAD, undefined);
                 }
             } else {
+                // Go home if you can't harvest or build.
+                console.log("Trying to go home");
                 creep.moveTo(creep.room.find(FIND_MY_SPAWNS)[0], {visualizePathStyle: {stroke: '#aaddff'}});
             }
         }
