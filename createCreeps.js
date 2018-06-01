@@ -8,8 +8,8 @@ let createCreeps = function(allCreeps) {
 
     const maxCounts = {
         harvester: 3,
-        upgrader: 2,
-        builder: 2,
+        upgrader: 4,
+        builder: 5,
     }
 
    let spawnCreep = function (role) {
